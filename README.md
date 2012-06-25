@@ -1,4 +1,4 @@
-# audio.js
+# audio.js (Radio-T build)
 
 audiojs is a drop-in javascript library that allows HTML5's `<audio>` tag to
 be used anywhere. It uses native `<audio>` where available and falls back
