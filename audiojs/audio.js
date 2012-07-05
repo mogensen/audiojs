@@ -111,8 +111,8 @@
         .audiojs .time{float:left;text-align:center;width:91px;height:22px;line-height:22px;margin:0px 0px 0px 0px;padding:0px 5px;border-left:1px solid #CECECE;border-right:1px solid #CECECE} \
         .audiojs .time em{padding:0px 2px 0px 0px;color:#526f9a;font-style:normal;text-shadow:none} \
         .audiojs .time strong{padding:0px 0px 0px 2px;color:#8D8D8D;font-weight:normal;text-shadow:none} \
-        .audiojs .volume {position:relative;float:left;width:50px;background:#CECECE;height:12px;overflow:hidden;margin:5px;} \
-        .audiojs .level {position:absolute;top:0;left:0;height:12px;width:100%;background:#338ce4;} \
+        .audiojs .volume {position:relative;float:left;width:50px;background:url("$1") -5px -178px no-repeat;height:12px;overflow:hidden;margin:5px;} \
+        .audiojs .level {position:absolute;top:0;left:0;height:12px;width:100%;background:url("$1") -5px -158px no-repeat;} \
         .audiojs .error-message{float:left;display:none;margin:0px 10px;height:21px;width:375px;overflow:hidden;line-height:21px;white-space:nowrap;color:#8D8D8D; \
           text-overflow:ellipsis; \
           -o-text-overflow:ellipsis; \
