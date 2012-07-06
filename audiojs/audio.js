@@ -34,6 +34,7 @@
       autoplay: false,
       loop: false,
       preload: true,
+      initialVolume: 0.5,
       imageLocation: path + 'player-graphics.gif',
       swfLocation: path + 'audiojs.swf',
       useFlash: (function() {
@@ -91,7 +92,7 @@
       // The css used by the default player. This is is dynamically injected into a `<style>` tag in the top of the head.
       css: '\
         .audiojs audio{position:absolute;left:-1px} \
-        .audiojs{width:421px;height:22px;background:none;border:1px solid LightGrey; \
+        .audiojs{width:400px;height:22px;background:none;border:1px solid LightGrey; \
           -webkit-border-radius:4px; \
           -moz-border-radius:4px; \
           -o-border-radius:4px; \
@@ -111,8 +112,8 @@
         .audiojs .time{float:left;text-align:center;width:91px;height:22px;line-height:22px;margin:0px 0px 0px 0px;padding:0px 5px;border-left:1px solid #CECECE;border-right:1px solid #CECECE} \
         .audiojs .time em{padding:0px 2px 0px 0px;color:#526f9a;font-style:normal;text-shadow:none} \
         .audiojs .time strong{padding:0px 0px 0px 2px;color:#8D8D8D;font-weight:normal;text-shadow:none} \
-        .audiojs .volume {position:relative;float:left;width:50px;background:url("$1") -5px -178px no-repeat;height:12px;overflow:hidden;margin:5px;} \
-        .audiojs .level {position:absolute;top:0;left:0;height:12px;width:100%;background:url("$1") -5px -158px no-repeat;} \
+        .audiojs .volume {position:relative;float:left;width:28px;background:url("$1") -10px -143px no-repeat;height:12px;overflow:hidden;margin:5px;} \
+        .audiojs .level {position:absolute;top:0;left:0;height:12px;width:100%;background:url("$1") -10px -123px no-repeat;} \
         .audiojs .error-message{float:left;display:none;margin:0px 10px;height:21px;width:375px;overflow:hidden;line-height:21px;white-space:nowrap;color:#8D8D8D; \
           text-overflow:ellipsis; \
           -o-text-overflow:ellipsis; \
@@ -272,6 +273,9 @@
 
       // Attach event callbacks to the new audiojs instance.
       if (!s.useFlash || (s.useFlash && s.hasFlash)) this.attachEvents(audio.wrapper, audio);
+
+      // Set initial volume to the new audiojs instance.
+      audio.settings.volume.call(audio, s.initialVolume);
 
       // Store the newly-created `audiojs` instance.
       this.instances[id] = audio;
