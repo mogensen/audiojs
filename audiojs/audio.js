@@ -275,7 +275,7 @@
       if (!s.useFlash || (s.useFlash && s.hasFlash)) this.attachEvents(audio.wrapper, audio);
 
       // Set initial volume to the new audiojs instance.
-      audio.setVolume.call(audio, s.initialVolume);
+      //audio.setVolume.call(audio, s.initialVolume);
 
       // Store the newly-created `audiojs` instance.
       this.instances[id] = audio;
@@ -313,12 +313,28 @@
           playPause = getByClass(player.playPauseClass, wrapper),
           scrubber = getByClass(player.scrubberClass, wrapper),
           volume = getByClass(player.volumeClass, wrapper),
-          leftPos = function(elem) {
+          getOffsetSum = function(elem) {
             var curleft = 0;
             if (elem.offsetParent) {
               do { curleft += elem.offsetLeft; } while (elem = elem.offsetParent);
             }
             return curleft;
+          },
+          getOffsetRect = function(elem) {
+            var box = elem.getBoundingClientRect(),
+                body = document.body,
+                docElem = document.documentElement,
+                scrollLeft = window.pageXOffset || docElem.scrollLeft || body.scrollLeft,
+                clientLeft = docElem.clientLeft || body.clientLeft || 0;
+
+            return Math.round(box.left + scrollLeft - clientLeft);
+          },
+          getLeftOffset = function(elem) {
+            if (elem.getBoundingClientRect) {
+              return getOffsetRect(elem)
+            } else {
+              return getOffsetSum(elem)
+            }
           };
 
       container[audiojs].events.addListener(playPause, 'click', function(e) {
@@ -326,12 +342,12 @@
       });
 
       container[audiojs].events.addListener(scrubber, 'click', function(e) {
-        var relativeLeft = e.clientX - leftPos(this);
+        var relativeLeft = e.clientX - getLeftOffset(this);
         audio.skipTo(relativeLeft / scrubber.offsetWidth);
       });
 
       container[audiojs].events.addListener(volume, 'click', function(e) {
-        var relativeLeft = e.clientX - leftPos(this);
+        var relativeLeft = e.clientX - getLeftOffset(this);
         audio.setVolume(relativeLeft / volume.offsetWidth);
       });
 
