@@ -275,7 +275,9 @@
       if (!s.useFlash || (s.useFlash && s.hasFlash)) this.attachEvents(audio.wrapper, audio);
 
       // Set initial volume to the new audiojs instance.
-      //audio.setVolume.call(audio, s.initialVolume);
+      if (!s.useFlash) {
+        audio.setVolume.call(audio, s.initialVolume);
+      }
 
       // Store the newly-created `audiojs` instance.
       this.instances[id] = audio;
