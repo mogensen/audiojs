@@ -173,15 +173,22 @@
     // `createAll()`
     // Creates multiple `audiojs` instances.
     // If `elements` is `null`, then automatically find any `<audio>` tags on the page and create `audiojs` instances for them.
-    createAll: function(options, elements) {
-      var audioElements = elements || document.getElementsByTagName('audio'),
-          instances = []
-          options = options || {};
-      for (var i = 0, ii = audioElements.length; i < ii; i++) {
-        instances.push(this.newInstance(audioElements[i], options));
-      }
-      return instances;
-    },
+	createAll: function(options, elements) {
+		var audioElements = elements || document.getElementsByTagName('audio'),
+			instances = [],
+			options = options || {},
+			re = new RegExp('audiojs_wrapper\\d+');
+		for (var i = 0, ii = audioElements.length; i < ii; i++) {
+			var e = audioElements[i].parentNode,
+				wrapped = false;
+			if (e && e.getAttribute) {
+				var id = e.getAttribute('id');
+				if (id != null && re.test(id)) wrapped = true;
+			}
+			if (! wrapped) instances.push(this.newInstance(audioElements[i], options));
+		}
+		return instances;
+	},
 
     // ### Creating and returning a new instance
     // This goes through all the steps required to build out a usable `audiojs` instance.
