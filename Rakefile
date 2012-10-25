@@ -7,7 +7,7 @@ task :compile do
 end
 
 task :commit_build do
-  `git commit audiojs/audio.js -m "Closure compiled \`git rev-parse HEAD\`"`
+  `git commit audiojs/audio.min.js -m "Closure compiled \`git rev-parse HEAD\`"`
 end
 
 desc "Zip up a release"
