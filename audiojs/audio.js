@@ -89,58 +89,6 @@
         volumeClass: 'volume',
         levelClass: 'level'
       },
-      // The css used by the default player. This is is dynamically injected into a `<style>` tag in the top of the head.
-      css: '\
-        .audiojs audio{position:absolute;left:-1px} \
-        .audiojs{width:400px;height:22px;background:none;border:1px solid LightGrey; \
-          -webkit-border-radius:4px; \
-          -moz-border-radius:4px; \
-          -o-border-radius:4px; \
-          border-radius:4px; overflow:hidden;font-family:monospace;font-size:12px;color:#8D8D8D; \
-          -webkit-box-shadow:none; \
-          -moz-box-shadow:none; \
-          -o-box-shadow:none; \
-          box-shadow:none; padding:1px 0px;margin:5px 0px} \
-        .audiojs .play-pause{width:22px;height:22px;padding:0;margin:0px;float:left;overflow:hidden;border-right:1px solid #CECECE} \
-        .audiojs p{display:none;width:22px;height:22px;margin:0px;cursor:pointer} \
-        .audiojs .play{display:block} \
-        .audiojs .scrubber{position:relative;float:left;width:225px;background:#CECECE;height:12px;margin:5px 5px;border-left:0px;border-bottom:0px solid #F9F9F9;border-top:0px solid #AEAEAE;overflow:hidden} \
-        .audiojs .progress{position:absolute;top:0px;left:0px;height:12px;width:0px;background:#338ce4;z-index:1; \
-          background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0, #509dea), color-stop(1, #1c72dd)); \
-          background-image:-moz-linear-gradient(center top, #509dea 0%, #1c72dd 100%)} \
-        .audiojs .loaded{position:absolute;top:0px;left:0px;height:12px;width:0px;background:#BABABA} \
-        .audiojs .time{float:left;text-align:center;width:91px;height:22px;line-height:22px;margin:0px 0px 0px 0px;padding:0px 5px;border-left:1px solid #CECECE;border-right:1px solid #CECECE} \
-        .audiojs .time em{padding:0px 2px 0px 0px;color:#526f9a;font-style:normal;text-shadow:none} \
-        .audiojs .time strong{padding:0px 0px 0px 2px;color:#8D8D8D;font-weight:normal;text-shadow:none} \
-        .audiojs .volume {position:relative;float:left;width:28px;background:url("$1") -10px -143px no-repeat;height:12px;overflow:hidden;margin:5px;} \
-        .audiojs .level {position:absolute;top:0;left:0;height:12px;width:100%;background:url("$1") -10px -123px no-repeat;} \
-        .audiojs .error-message{float:left;display:none;margin:0px 10px;height:21px;width:375px;overflow:hidden;line-height:21px;white-space:nowrap;color:#8D8D8D; \
-          text-overflow:ellipsis; \
-          -o-text-overflow:ellipsis; \
-          -icab-text-overflow:ellipsis; \
-          -khtml-text-overflow:ellipsis; \
-          -moz-text-overflow:ellipsis; \
-          -webkit-text-overflow:ellipsis} \
-        .audiojs .error-message a{color:#338ce4;text-decoration:none;white-space:wrap} \
-        \
-        .audiojs .play{background:url("$1") -3px -3px no-repeat} \
-        .audiojs .loading{background:url("$1") -3px -33px no-repeat} \
-        .audiojs .error{background:url("$1") -3px -63px no-repeat} \
-        .audiojs .pause{background:url("$1") -3px -93px no-repeat} \
-        \
-        .audiojs .pause:hover,.audiojs .pause:focus{background:url("$1") -33px -93px no-repeat} \
-        .audiojs .play:hover,.audiojs .play:focus{background:url("$1") -33px -3px no-repeat} \
-        \
-        .playing .play,.playing .loading,.playing .error{display:none} \
-        .playing .pause{display:block} \
-        \
-        .loading .play,.loading .pause,.loading .error{display:none} \
-        .loading .loading{display:block} \
-        \
-        .error .time,.error .play,.error .pause,.error .scrubber,.error .loading,.error .volume{display:none} \
-        .error .error{display:block} \
-        .error .play-pause p{cursor:auto} \
-        .error .error-message{display:block}',
       // The default event callbacks:
       trackEnded: function(e) {},
       flashError: function() {
@@ -259,9 +207,6 @@
 
       // Return a new `audiojs` instance.
       var audio = new container[audiojsInstance](element, s);
-
-      // If css has been passed in, dynamically inject it into the `<head>`.
-      if (s.css) this.helpers.injectCss(audio, s.css);
 
       // If `<audio>` or mp3 playback isn't supported, insert the swf & attach the required events for it.
       if (s.useFlash && s.hasFlash) {
@@ -471,40 +416,6 @@
       removeClass: function(element, className) {
         var re = new RegExp('(\\s|^)'+className+'(\\s|$)');
         element.className = element.className.replace(re,' ');
-      },
-      // **Dynamic CSS injection**
-      // Takes a string of css, inserts it into a `<style>`, then injects it in at the very top of the `<head>`. This ensures any user-defined styles will take precedence.
-      injectCss: function(audio, string) {
-
-        // If an `audiojs` `<style>` tag already exists, then append to it rather than creating a whole new `<style>`.
-        var prepend = '',
-            styles = document.getElementsByTagName('style'),
-            css = string.replace(/\$1/g, audio.settings.imageLocation);
-
-        for (var i = 0, ii = styles.length; i < ii; i++) {
-          var title = styles[i].getAttribute('title');
-          if (title && ~title.indexOf('audiojs')) {
-            style = styles[i];
-            if (style.innerHTML === css) return;
-            prepend = style.innerHTML;
-            break;
-          }
-        };
-
-        var head = document.getElementsByTagName('head')[0],
-            firstchild = head.firstChild,
-            style = document.createElement('style');
-
-        if (!head) return;
-
-        style.setAttribute('type', 'text/css');
-        style.setAttribute('title', 'audiojs');
-
-        if (style.styleSheet) style.styleSheet.cssText = prepend + css;
-        else style.appendChild(document.createTextNode(prepend + css));
-
-        if (firstchild) head.insertBefore(style, firstchild);
-        else head.appendChild(styleElement);
       },
       // **Handle all the IE6+7 requirements for cloning `<audio>` nodes**
       // Create a html5-safe document fragment by injecting an `<audio>` element into the document fragment.
