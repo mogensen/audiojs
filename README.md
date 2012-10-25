@@ -1,4 +1,4 @@
-# audio.js (Radio-T build)
+# audio.js
 
 audiojs is a drop-in javascript library that allows HTML5's `<audio>` tag to
 be used anywhere. It uses native `<audio>` where available and falls back
@@ -11,13 +11,17 @@ Hopefully they can add mp3 support soon.
 
 ## Usage
 
-1. Put `audio.js`, `player-graphics.gif` & `audiojs.swf` in the same folder.
+1. Put `audio.js`, `style-light.css`, `player-graphics.gif` & `audiojs.swf` in the same folder.
 
-2. Include `audio.js`:
+2. Include `style-light.css`:
+
+        <link rel="stylesheet" href="style-light.css" media="screen">
+
+3. Include `audio.js`:
 
         <script src="/audiojs/audio.js"></script>
 
-3. Initialise audiojs:
+4. Initialise audiojs:
 
         <script>
           audiojs.events.ready(function() {
@@ -25,7 +29,7 @@ Hopefully they can add mp3 support soon.
           });
         </script>
 
-4. Then you can use `<audio>` wherever you like in your HTML:
+5. Then you can use `<audio>` wherever you like in your HTML:
 
         <audio src="/mp3/juicy.mp3" preload="auto" />
 
