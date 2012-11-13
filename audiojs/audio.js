@@ -239,7 +239,8 @@
     createPlayer: function(element, player, id) {
       var wrapper = document.createElement('div'),
           newElement = element.cloneNode(true);
-      wrapper.setAttribute('class', 'audiojs');
+      var divClass = element.getAttribute('class') || 'audiojs';
+      wrapper.setAttribute('class', divClass);
       wrapper.setAttribute('className', 'audiojs');
       wrapper.setAttribute('id', id);
 
