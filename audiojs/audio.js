@@ -38,6 +38,7 @@
       imageLocation: path + 'player-graphics.gif',
       swfLocation: path + 'audiojs.swf',
       useFlash: (function() {
+		if ((/Chrome/i).test(navigator.userAgent)) {return true;};
         var a = document.createElement('audio');
         return !(a.canPlayType && a.canPlayType('audio/mpeg;').replace(/no/, ''));
       })(),
