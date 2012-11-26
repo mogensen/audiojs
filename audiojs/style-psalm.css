@@ -212,13 +212,15 @@
     margin: 0px 0px;
 	display: inline;
 	float:left;
+	position: absolute;
+	top: 25%;
 }
 .audiojs-small .play-pause {
     width: 22px;
     height: 22px;
     padding: 0;
-    margin: 0px;
-	margin-top: -4px;
+    margin: 3px;
+	margin-top: 0px;
     float: left;
     overflow: hidden;
 }
@@ -279,7 +281,7 @@
     white-space: wrap;
 }
 .audiojs-small .play {
-    background: url("/typo3conf/ext/dkm_fed/Resources/Public/audiojs/audiojs/player-graphics_blue.gif") -3px -3px no-repeat
+    background: url("/typo3conf/ext/dkm_fed/Resources/Public/audiojs/audiojs/playknap.png") no-repeat
 }
 .audiojs-small .loading {
     background: url("/typo3conf/ext/dkm_fed/Resources/Public/audiojs/audiojs/player-graphics_blue.gif") -3px -33px no-repeat
@@ -288,15 +290,15 @@
     background: url("/typo3conf/ext/dkm_fed/Resources/Public/audiojs/audiojs/player-graphics_blue.gif") -3px -63px no-repeat
 }
 .audiojs-small .pause {
-    background: url("/typo3conf/ext/dkm_fed/Resources/Public/audiojs/audiojs/player-graphics_blue.gif") -3px -93px no-repeat
+    background: url("/typo3conf/ext/dkm_fed/Resources/Public/audiojs/audiojs/pauseknap.png") no-repeat
 }
 .audiojs-small .pause:hover,
 .audiojs-small .pause:focus {
-    background: url("/typo3conf/ext/dkm_fed/Resources/Public/audiojs/audiojs/player-graphics_blue.gif") -33px -93px no-repeat
+    background: url("/typo3conf/ext/dkm_fed/Resources/Public/audiojs/audiojs/pauseknap.png") no-repeat
 }
 .audiojs-small .play:hover,
 .audiojs-small .play:focus {
-    background: url("/typo3conf/ext/dkm_fed/Resources/Public/audiojs/audiojs/player-graphics_blue.gif") -33px -3px no-repeat
+    background: url("/typo3conf/ext/dkm_fed/Resources/Public/audiojs/audiojs/playknap.png") no-repeat
 }
 .audiojs-small.playing .play,
 .playing .loading,
